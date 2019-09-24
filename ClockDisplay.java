@@ -17,6 +17,7 @@ public class ClockDisplay
     private NumberDisplay hours;
     private NumberDisplay minutes;
     private String displayString;    // simulates the actual display
+    private String dayOrNight;
     
     /**
      * Constructor for ClockDisplay objects. This constructor 
@@ -63,6 +64,25 @@ public class ClockDisplay
         hours.setValue(hour);
         minutes.setValue(minute);
         updateDisplay();
+    }
+    
+    public void get24HourInternalDisplay(int hour){
+        if(hour>12)
+        {
+          hour= hour - 12;
+          hours.setValue(hour);
+          dayOrNight = "PM";
+        }
+        else if (hour == 0){
+            hour = 12;
+            hours.setValue(hour);
+            dayOrNight = "AM";
+        }
+        else{
+            hour = hour;
+            hours.setValue(hour);
+            dayOrNight = "AM";
+        }
     }
 
     /**
