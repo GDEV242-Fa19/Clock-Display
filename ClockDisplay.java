@@ -74,6 +74,11 @@ public class ClockDisplay
           hours.setValue(hour);
           dayOrNight = "PM";
         }
+        else if (hour == 0){
+            hour = 12;
+            hours.setValue(hour);
+            dayOrNight = "AM";
+        }
         else{
             hour = hour;
             hours.setValue(hour);
