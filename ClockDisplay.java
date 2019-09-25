@@ -83,6 +83,8 @@ public class ClockDisplay
             hours.setValue(hour);
             dayOrNight = "AM";
         }
+        updateDisplay();
+
     }
 
     /**
