@@ -66,6 +66,9 @@ public class ClockDisplay
         updateDisplay();
     }
     
+    
+    //First option by me
+    
     public void get24HourInternalDisplay(int hour){
         if(hour>12)
         {
@@ -100,8 +103,35 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
+        //first option by me
+        
         displayString = hours.getDisplayValue() + ":" + 
                         minutes.getDisplayValue() + " " 
                         + dayOrNight ;
+                        
+          //second option provided by professor
+          
+          // displayString = "";
+          
+          // if(hours.getValue() == 0){     // is it the special case of 12 am
+              // displayString += "12";
+            // } else if((hours.getValue() >= 1) && (hours.getValue() <= 12))
+            // {
+                // displayString += hours.getDisplayValue();
+            // } else {  //it must be afternoon
+                // displayString += hours.getValue() - 12;
+            // }
+          
+          
+            // displayString = hours.getDisplayValue(); 
+            // displayString += ":";
+            // displayString += minutes.getDisplayValue(); 
+            
+            // if (hours.getValue()<12){
+               // displayString += " AM";
+             // } else {
+              // displayString += " PM";
+             // }
+            
     }
 }
