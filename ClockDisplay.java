@@ -97,11 +97,17 @@ public class ClockDisplay
         String suffix; //an or pm display
         
         if (hour >= 12){
-            suffix = "pm";
+            suffix = " pm";
             
         } 
         else{
-            suffix = "am";
+            suffix = " am";
+        }
+        if(hour >= 12){
+            hour -= 12;
+        }
+        if (hour == 0 ){
+            hour = 12;
         }
         displayString = hours.getDisplayValue() + ":" + 
         minutes.getDisplayValue()+ suffix;
