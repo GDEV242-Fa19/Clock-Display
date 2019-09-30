@@ -8,8 +8,7 @@
  * and reacts by incrementing the display. This is done in the usual clock
  * fashion: the hour increments when the minutes roll over to zero.
  * 
- * @author Michael Kölling and David J. Barnes
- * @version 2011.07.31
+ * @author Ben Adelson
  */
 public class ClockDisplay
 {
@@ -18,14 +17,19 @@ public class ClockDisplay
     private String displayString;    // simulates the actual display
     private String dayOrNight;
     
+    //provided by instructor
+    private String meridian;
+    private boolean isMorning;      // true for AM false for PM
+    
     /**
      * Constructor for ClockDisplay objects. This constructor 
      * creates a new clock set at 00:00.
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12); //was 24
         minutes = new NumberDisplay(60);
+        meridian = " AM" ;
         updateDisplay();
     }
 
@@ -34,10 +38,11 @@ public class ClockDisplay
      * creates a new clock set at the time specified by the 
      * parameters.
      */
-    public ClockDisplay(int hour, int minute)
+    public ClockDisplay(int hour, int minute, String meridian)
     {
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
+        this.meridian = meridian;
         setTime(hour, minute);
     }
 
