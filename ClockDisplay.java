@@ -17,6 +17,7 @@ public class ClockDisplay
     private NumberDisplay hours;
     private NumberDisplay minutes;
     private String displayString;    // simulates the actual display
+    private String dayOrNight;
     
     /**
      * Constructor for ClockDisplay objects. This constructor 
@@ -64,6 +65,30 @@ public class ClockDisplay
         minutes.setValue(minute);
         updateDisplay();
     }
+    
+    
+    //First option by me
+    
+    public void get24HourInternalDisplay(int hour){
+        if(hour>12)
+        {
+          hour= hour - 12;
+          hours.setValue(hour);
+          dayOrNight = "PM";
+        }
+        else if (hour == 0){
+            hour = 12;
+            hours.setValue(hour);
+            dayOrNight = "AM";
+        }
+        else{
+            hour = hour;
+            hours.setValue(hour);
+            dayOrNight = "AM";
+        }
+        updateDisplay();
+
+    }
 
     /**
      * Return the current time of this display in the format HH:MM.
@@ -78,7 +103,35 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
+        //first option by me
+        
         displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+                        minutes.getDisplayValue() + " " 
+                        + dayOrNight ;
+                        
+          //second option provided by professor
+          
+          // displayString = "";
+          
+          // if(hours.getValue() == 0){     // is it the special case of 12 am
+              // displayString += "12";
+            // } else if((hours.getValue() >= 1) && (hours.getValue() <= 12))
+            // {
+                // displayString += hours.getDisplayValue();
+            // } else {  //it must be afternoon
+                // displayString += hours.getValue() - 12;
+            // }
+          
+          
+            // displayString = hours.getDisplayValue(); 
+            // displayString += ":";
+            // displayString += minutes.getDisplayValue(); 
+            
+            // if (hours.getValue()<12){
+               // displayString += " AM";
+             // } else {
+              // displayString += " PM";
+             // }
+            
     }
 }
