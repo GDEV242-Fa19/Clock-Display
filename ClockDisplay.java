@@ -29,7 +29,6 @@ public class ClockDisplay
     {
         hours = new NumberDisplay(12); //was 24
         minutes = new NumberDisplay(60);
-        meridian = " AM" ;
         updateDisplay();
     }
 
@@ -40,7 +39,7 @@ public class ClockDisplay
      */
     public ClockDisplay(int hour, int minute, String meridian)
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(24); //was 24
         minutes = new NumberDisplay(60);
         this.meridian = meridian;
         setTime(hour, minute);
@@ -56,6 +55,22 @@ public class ClockDisplay
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
         }
+        int hour = hours.getValue();
+
+        if(hour == 0){
+            hour = 12;
+            hours.setValue(hour);
+            meridian = " AM";
+
+        }
+        if(hour >= 12){
+            hour -= 12;
+            hours.setValue(hour);
+            meridian = " PM";
+        }
+        if(hour == 24){
+            hour = 12;
+        }
         updateDisplay();
     }
 
@@ -70,27 +85,28 @@ public class ClockDisplay
         updateDisplay();
     }
 
+    // first option, not the correct version
     
-     public void get12HourInternalDisplay(int hour)
-    {
-        if(hour>12)
-        {
-          hour= hour - 12;
-          hours.setValue(hour);
-          dayOrNight = "PM";
-        }
-        else if (hour == 0){
-            hour = 12;
-            hours.setValue(hour);
-            dayOrNight = "AM";
-        }
-        else{
-            hour = hour;
-            hours.setValue(hour);
-            dayOrNight = "AM";
-        }
-        updateDisplay();
-    }
+     // public void get12HourInternalDisplay(int hour)
+    // {
+        // if(hour>12)
+        // {
+          // hour= hour - 12;
+          // hours.setValue(hour);
+          // dayOrNight = "PM";
+        // }
+        // else if (hour == 0){
+            // hour = 12;
+            // hours.setValue(hour);
+            // dayOrNight = "AM";
+        // }
+        // else{
+            // hour = hour;
+            // hours.setValue(hour);
+            // dayOrNight = "AM";
+        // }
+        // updateDisplay();
+    // }
     
     
     /**
@@ -106,7 +122,27 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
+        int hour = hours.getValue();
+        String meridian;
+        
+        if(hour >= 12){
+            meridian = " PM";
+        }
+        else{
+            meridian = " AM";
+        }
+        if(hour == 0){
+            hour = 12;
+            hours.setValue(hour);
+
+        }
+        if(hour >= 12){
+            hour -= 12;
+            hours.setValue(hour);
+        }
+        
         displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue() + " " + dayOrNight;
+                        minutes.getDisplayValue() + " " + meridian;
+                        //removed dayOrNight
     }
 }
