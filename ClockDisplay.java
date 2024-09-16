@@ -10,6 +10,7 @@
  * fashion: the hour increments when the minutes roll over to zero.
  * 
  * @author Michael Kölling and David J. Barnes
+ * Kazeem Azeez
  * @version 2011.07.31
  */
 public class ClockDisplay
@@ -17,14 +18,14 @@ public class ClockDisplay
     private NumberDisplay hours;
     private NumberDisplay minutes;
     private String displayString;    // simulates the actual display
-    
+
     /**
      * Constructor for ClockDisplay objects. This constructor 
      * creates a new clock set at 00:00.
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
         updateDisplay();
     }
@@ -36,7 +37,7 @@ public class ClockDisplay
      */
     public ClockDisplay(int hour, int minute)
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(13);
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
     }
@@ -47,11 +48,25 @@ public class ClockDisplay
      */
     public void timeTick()
     {
+        int hour;
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
+            hour = hours.getValue() + 1;
+            {
+
+                if(hours.getValue() > 12)
+
+
+                    hour = hours.getValue() - 12;
+            }
+
         }
-        updateDisplay();
+        {       
+
+            updateDisplay();
+        }
+
     }
 
     /**
@@ -72,13 +87,29 @@ public class ClockDisplay
     {
         return displayString;
     }
-    
+
     /**
      * Update the internal string that represents the display.
      */
     private void updateDisplay()
     {
+        int hour = hours.getValue();
+        String suffix; //an or pm display
+        
+        if (hour >= 12){
+            suffix = " pm";
+            
+        } 
+        else{
+            suffix = " am";
+        }
+        if(hour >= 12){
+            hour -= 12;
+        }
+        if (hour == 0 ){
+            hour = 12;
+        }
         displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+        minutes.getDisplayValue()+ suffix;
     }
 }
