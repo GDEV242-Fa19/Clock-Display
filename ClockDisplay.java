@@ -1,4 +1,3 @@
-
 /**
  * The ClockDisplay class implements a digital clock display for a
  * European-style 24 hour clock. The clock shows hours and minutes. The 
@@ -9,14 +8,18 @@
  * and reacts by incrementing the display. This is done in the usual clock
  * fashion: the hour increments when the minutes roll over to zero.
  * 
- * @author Michael Kölling and David J. Barnes
- * @version 2011.07.31
+ * @author Ben Adelson
  */
 public class ClockDisplay
 {
     private NumberDisplay hours;
     private NumberDisplay minutes;
     private String displayString;    // simulates the actual display
+    private String dayOrNight;
+    
+    //provided by instructor
+    private String meridian;
+    private boolean isMorning;      // true for AM false for PM
     
     /**
      * Constructor for ClockDisplay objects. This constructor 
@@ -24,7 +27,7 @@ public class ClockDisplay
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12); //was 24
         minutes = new NumberDisplay(60);
         updateDisplay();
     }
@@ -34,10 +37,11 @@ public class ClockDisplay
      * creates a new clock set at the time specified by the 
      * parameters.
      */
-    public ClockDisplay(int hour, int minute)
+    public ClockDisplay(int hour, int minute, String meridian)
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(24); //was 24
         minutes = new NumberDisplay(60);
+        this.meridian = meridian;
         setTime(hour, minute);
     }
 
@@ -50,6 +54,22 @@ public class ClockDisplay
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
+        }
+        int hour = hours.getValue();
+
+        if(hour == 0){
+            hour = 12;
+            hours.setValue(hour);
+            meridian = " AM";
+
+        }
+        if(hour >= 12){
+            hour -= 12;
+            hours.setValue(hour);
+            meridian = " PM";
+        }
+        if(hour == 24){
+            hour = 12;
         }
         updateDisplay();
     }
@@ -65,6 +85,30 @@ public class ClockDisplay
         updateDisplay();
     }
 
+    // first option, not the correct version
+    
+     // public void get12HourInternalDisplay(int hour)
+    // {
+        // if(hour>12)
+        // {
+          // hour= hour - 12;
+          // hours.setValue(hour);
+          // dayOrNight = "PM";
+        // }
+        // else if (hour == 0){
+            // hour = 12;
+            // hours.setValue(hour);
+            // dayOrNight = "AM";
+        // }
+        // else{
+            // hour = hour;
+            // hours.setValue(hour);
+            // dayOrNight = "AM";
+        // }
+        // updateDisplay();
+    // }
+    
+    
     /**
      * Return the current time of this display in the format HH:MM.
      */
@@ -78,7 +122,27 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
+        int hour = hours.getValue();
+        String meridian;
+        
+        if(hour >= 12){
+            meridian = " PM";
+        }
+        else{
+            meridian = " AM";
+        }
+        if(hour == 0){
+            hour = 12;
+            hours.setValue(hour);
+
+        }
+        if(hour >= 12){
+            hour -= 12;
+            hours.setValue(hour);
+        }
+        
         displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+                        minutes.getDisplayValue() + " " + meridian;
+                        //removed dayOrNight
     }
 }
